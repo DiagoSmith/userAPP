@@ -75,9 +75,20 @@ app.post('/adduser',function(req, res) { //new route for the to deal with the da
 	booUser.email = req.body.email; // same as above
     userArray.push(booUser); // push this new object to the userArray 
 
+   var jsonUser = JSON.stringify(userArray); //turn back into json to write back to original json file.
+
+
+fs.writeFile("users.json", jsonUser, function(err, contents) { //for each post from new user, add the new user back to the json file also.
+	if (err) {
+		throw err;
+	};
+
     console.log(userArray); //print to test it's added
 
     res.redirect('/users'); //will refresh to user listing page. 
+
+});
+
 
 });
 
