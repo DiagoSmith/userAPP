@@ -1,0 +1,14 @@
+html
+head 
+body
+	h1 Enter your details!
+	// REMEMBER INDENTATION, OR ELSE EVERYTHING WILL GO WRONG IN STUPID JADE. 
+	form(method ="post",action ="/adduser") 
+		p First Name
+			input(type="text",name="firstname")
+		p Last Name 
+			input(type="text",name="lastname")
+		p email
+			input(type="text",name="email")
+		p
+			input(type="submit")

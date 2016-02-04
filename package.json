@@ -1,0 +1,15 @@
+{
+  "name": "userapp",
+  "version": "1.0.0",
+  "main": "userapp.js",
+  "dependencies": {
+    "body-parser": "^1.14.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
