@@ -1,0 +1,22 @@
+html
+head 
+	script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+body
+	h1 Search the Users V2.!
+//WATCH OUT FOR SPACES OR INDENTS, THE WHOLE DOCUMENT MUST USE ONE OR ANOTHER, GEEN COMBOS !
+form(method ="post", action ="/result")
+	input(type="text",name="bar",id="barz" autocomplete="off")
+	
+	
+
+script.
+	var $bar = $("#barz");
+		$bar.keyup(function() { //use keyup instead of keydown
+		var query1 = $bar.serialize(); //takes the input of the first key put and converts to a string. 
+		console.log(query1);
+		console.log("after key press")
+		$.post('/autocomplete',query1, function(data) { //sends the key to the server. 
+		console.log("it works")
+		$bar.val(data) //fill the searchbar with autocompleted server response. 
+		});
+	}); 

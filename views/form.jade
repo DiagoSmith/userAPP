@@ -1,13 +1,26 @@
 html
 head 
+	script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
 body
 	h1 Search the Users!
 //WATCH OUT FOR SPACES OR INDENTS, THE WHOLE DOCUMENT MUST USE ONE OR ANOTHER, GEEN COMBOS !
 form(method ="post", action ="/result")
 	p First Name
-	input(type="text",name="firstname")
+	input(type="text",name="firstname",id="firstN" autocomplete="off")
 	p Last Name 
-	input(type="text",name="lastname")
+	input(type="text",name="lastname",id="lastN")
 	p
 	input(type="submit")
-    
+
+//script.
+	var $firstN = $("#firstN"),
+		$lastN = $("lastN");
+		$firstN.keyup(function() { //use keyup instead of keydown
+			var query1 = $firstN.serialize(); 
+			console.log(query1);
+			console.log("after key press")
+		$.post('/autocomplete',query1, function(data) {
+			console.log("it works")
+			$firstN.val(data)
+		});
+	}); 

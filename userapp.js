@@ -42,6 +42,11 @@ app.get('/form', function(req, res) { // new route for the user form page
 	res.render('form');
 });
 
+app.get('/search2', function(req, res) { // ALPHA SEARCH ROUTE 
+	res.render('search2');
+});
+
+
 app.post('/result', function(req, res) { //post to deal with the data from the form page. 
 	firstQuery = req.body.firstname;
 	secondQuery = req.body.lastname;
@@ -88,9 +93,23 @@ fs.writeFile("users.json", jsonUser, function(err, contents) { //for each post f
     res.redirect('/users'); //will refresh to user listing page. 
 
 });
-
-
 });
+
+app.post('/autocomplete',function(req,res) {
+	console.log("might be working")
+	fauto = req.body.bar //takes the body from the search form in search2
+	console.log(fauto)
+	for (i = 0; i < userArray.length; i++) {
+		if (userArray[i].firstname[0] == fauto) {
+			var booty = userArray[i].firstname + " " + userArray[i].lastname;
+			break //transforms the first letter into a matching user
+		}
+		else var booty = fauto //if no matches, remains the initial input.
+	}
+		res.send(booty); //replaces the input search bar with autocompleted user. 
+});
+
+
 
 
 app.listen(3000);
