@@ -96,17 +96,26 @@ fs.writeFile("users.json", jsonUser, function(err, contents) { //for each post f
 });
 
 app.post('/autocomplete',function(req,res) {
-	console.log("might be working")
 	fauto = req.body.bar //takes the body from the search form in search2
-	console.log(fauto)
-	for (i = 0; i < userArray.length; i++) {
-		if (userArray[i].firstname[0] == fauto) {
-			var booty = userArray[i].firstname + " " + userArray[i].lastname;
-			break //transforms the first letter into a matching user
+	console.log(fauto) //prints out the value entered by user
+	var booty = []; //empty array for the users to send back via AJAX
+	for (i = 0; i < userArray.length; i++) { //iterate through user array
+		if (userArray[i].firstname.includes(fauto) && fauto !=""|| userArray[i].lastname.includes(fauto) && fauto !="") {
+			//if firstname or secondname includes user input and isn't a space.
+			booty.push(userArray[i].firstname + " " + userArray[i].lastname + ", ") 
+			//push each corresponding name to the new array. 
+			console.log(booty);
 		}
-		else var booty = fauto //if no matches, remains the initial input.
-	}
-		res.send(booty); //replaces the input search bar with autocompleted user. 
+		}
+		//outside of the for loop 
+if (booty.length === 0) {
+	//if booty contains no results, and counter has gone through whole array.
+	booty.push("No Results Found")
+	//turn booty into no results found
+}
+		
+
+res.send(booty); //send booty back to site with matching users.
 });
 
 
