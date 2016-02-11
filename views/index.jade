@@ -1,9 +1,16 @@
 html
 head 
 body
-    h1 User list
-    each thing in userList 
-        //iterate through array
-        p= thing.firstname + " " + thing.lastname + ": " + thing.email
-        //return and format firstname,lastname and email as paragraphs.
+	h1 User list
+	each thing in userList 
+		//iterate through array
+		p= thing.firstname+" "+thing.lastname+": "+thing.email
+	//return and format firstname,lastname and email as paragraphs.
 
+ul
+	li
+		a(href='/users')	User List
+	li
+		a(href='/newusers')	Make a New User
+	li
+		a(href='/search2')	Search the Users

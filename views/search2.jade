@@ -6,17 +6,55 @@ body
 //WATCH OUT FOR SPACES OR INDENTS, THE WHOLE DOCUMENT MUST USE ONE OR ANOTHER, GEEN COMBOS !
 form(method ="post", action ="/result")
 	input(type="text",name="bar",id="barz" autocomplete="off")
-	
-	
+#results
 
-script.
+ul
+	li
+		a(href='/users')	User List
+	li
+		a(href='/newusers')	Make a New User
+	li
+		a(href='/search2')	Search the Users
+	
+	
+//Non-modular version of script 
+//script.
 	var $bar = $("#barz");
 		$bar.keyup(function() { //use keyup instead of keydown
-		var query1 = $bar.serialize(); //takes the input of the first key put and converts to a string. 
+		var query1 = $bar.val(); //takes the input of the first key put and converts to a string. 
+		query1 = $bar.serialize(); 
 		console.log(query1);
 		console.log("after key press")
 		$.post('/autocomplete',query1, function(data) { //sends the key to the server. 
 		console.log("it works")
-		$bar.val(data) //fill the searchbar with autocompleted server response. 
+		$("#results").html(data) //fill the div with autocompleted server response. 
 		});
 	}); 
+
+script.
+	var $bar = $("#barz");
+	var counter = 0 // initialize counter
+	var timer = 0 //initialize timer 
+		
+		//modular instead of old script above. 
+		$bar.keyup(function() {
+		if (counter != 0 && Date.now() < timer + 300) { // ensures not first initial keypress, and compares current time against time of previous ajax request.
+			return 
+			}
+		else {
+		ajaxReq(); //executes function if after 300ms since last request
+			}
+		});	
+		
+
+		function ajaxReq () {	
+		var query1 = $bar.val();
+		query1 = $bar.serialize();
+		$.post('/autocomplete',query1, function(data) { //sends the current search input to the server. 
+		console.log("it works")
+		$("#results").html(data) //fill the div with autocompleted server response. 
+		counter ++; // increases counter, to avoid excuting on first key push.
+		timer = Date.now() //sets the timer at end of function
+		});
+		}
+  
